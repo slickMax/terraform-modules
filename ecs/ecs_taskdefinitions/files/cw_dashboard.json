@@ -1,0 +1,34 @@
+{
+    "widgets": [
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 0,
+            "width": 11,
+            "height": 5,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/ECS", "MemoryUtilization", "ServiceName", "${service_name}", "ClusterName", "${cluster_name}" ]
+                ],
+                "region": "${region}"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 11,
+            "y": 0,
+            "width": 13,
+            "height": 5,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/ECS", "CPUUtilization", "ServiceName", "${service_name}", "ClusterName", "${cluster_name}" ]
+                ],
+                "region": "${region}"
+            }
+        }
+    ]
+}
