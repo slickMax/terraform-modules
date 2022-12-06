@@ -1,0 +1,57 @@
+[
+    {
+      "name": "${app_name}",
+      "image": "${image}:${image_tag}",
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-group": "${cw_log_group}"
+        }
+      },
+      "portMappings": [
+        {
+          "containerPort": ${port},
+          "hostPort": ${port},
+          "protocol": "tcp"
+        }
+      ],
+      "cpu": ${cpu},
+      "environment":[
+        %{ for name, value in environment_entries }
+        {
+          "name": "${name}",
+          "value": "${value}"
+        },
+        %{ endfor ~}
+        {
+          "name": "APP_NAME",
+          "value": "${app_name}"
+        }
+      ],
+      "secrets":[
+        %{ for name, value in environment_secrets }
+        {
+          "name": "${name}",
+          "valueFrom": "${value}"
+        },
+        %{ endfor ~}
+        {
+          "name": "APP_SEC_NAME",
+          "valueFrom": "${app_name}"
+        }
+      ],
+      "ulimits": [
+        {
+          "name": "nofile",
+          "softLimit": 65536,
+          "hardLimit": 65536
+        }
+      ],
+      "mountPoints": [],
+      "memory": ${memory},
+      "volumesFrom": []
+    }
+]
