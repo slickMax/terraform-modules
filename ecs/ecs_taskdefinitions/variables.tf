@@ -92,7 +92,7 @@ variable "service_name" {
 
 variable "codebuild_image" {
   description = "CodeBuild Container base image"
-  default = "aws/codebuild/standard:4.0"
+  default = "aws/codebuild/standard:6.0"
   type = string
 }
 

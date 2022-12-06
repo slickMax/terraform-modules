@@ -3,11 +3,12 @@ version: 0.2
 phases:
   install: 
     runtime-versions:
-      php: 8.0.2
+      php: 8.1
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --no-include-email --region ${deploy_region})
+      # - $(aws ecr get-login-password --no-include-email --region ${deploy_region})
+      - aws ecr get-login-password --region ${deploy_region} | docker login --username AWS --password-stdin 893772890394.dkr.ecr.${deploy_region}.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
@@ -17,6 +18,7 @@ phases:
       - cp .env.example .env
       - echo generating app key
       - php artisan key:generate
+      - ls
       - echo Building the Docker image...          
       - docker build -t ${docker_image} .   
   post_build:
