@@ -34,3 +34,8 @@ resource "aws_iam_role_policy_attachment" "ecs_ssm_secrets_role" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
 }
+
+resource "aws_iam_role_policy_attachment" "ecs_s3_fullaccess_role" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
